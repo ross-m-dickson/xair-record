@@ -115,10 +115,10 @@ def getLS(list):
 
 # Draw 6 lines of text to the screen
 def drawText(text, offset, shift):
-    pos = 0
+    pos = 0 + 2 * font_height
     lines = len(text)
     print("%s %s %s" % (text, offset, lines))
-    for line in range(6):
+    for line in range(4):
         if lines ==0 or (line+offset > lines):
             return
         draw.text((0, pos), text[line+offset][shift:], font=font, fill=255,)
@@ -131,18 +131,6 @@ offset = 0      # starting line of output
 shift = 0       # number of characters to shift
 text = getLS(True)
 
-A = 0
-B = A + 3
-C = B + 2 # 4
-D = C + 2 # 6
-E = D + 2 # 8
-F = E + 2 # 9
-G = F + 3 # 12
-X_off = width - G
-Y_off = 5
-U_pos = [(C+X_off, B+Y_off), (D+X_off, A+Y_off), (E+X_off, B+Y_off)]
-D_pos = [(D+X_off, G+Y_off), (E+X_off, F+Y_off), (C+X_off, E+Y_off)]
-
 while True:
     if redraw:
         # Draw a black filled box to clear the image.
@@ -152,53 +140,44 @@ while True:
 
     # x,y left middle right
     if button_U.value:  # button is released
-        draw.polygon(U_pos, outline=255, fill=0)  # Up
         if press_U:
             if offset > 0:
                 offset -= 1
             redraw = True
             press_U = False
     else:  # button is pressed:
-        draw.polygon(U_pos, outline=255, fill=1)  # Up filled
         press_U = True
 
     # middle, right, left
     if button_D.value:  # button is released
-        draw.polygon(D_pos, outline=255, fill=0)  # down
         if press_D:
             if offset < len(text) - 6:
                 offset += 1
             redraw = True
             press_D = False
     else:  # button is pressed:
-        draw.polygon(D_pos, outline=255, fill=1)  # down filled
         press_D = True
 
     # middle, top, bottom
     if button_L.value:  # button is released
-        draw.polygon([(A+X_off, D+Y_off), (B+X_off, C+Y_off), (B+X_off, E+Y_off)], outline=255, fill=0)  # left
         if press_L:
             if shift > 0:
                 shift -= 1
             redraw = True
             press_L = False
     else:  # button is pressed:
-        draw.polygon([(0, 30), (18, 21), (18, 41)], outline=255, fill=1)  # left filled
         press_L = True
 
     # middle, top, bottom
     if button_R.value:  # button is released
-        draw.polygon([(G+X_off, D+Y_off), (F+X_off, C+Y_off), (F+X_off, E+Y_off)], outline=255, fill=0)  # right
         if press_R:
             shift += 1
             redraw = True
             press_R = False
     else:  # button is pressed:
-        draw.polygon([(60, 30), (42, 21), (42, 41)], outline=255, fill=1)  # right filled
         press_R = True
 
     if button_C.value:  # button is released
-        draw.rectangle((C+X_off, C+Y_off, E+X_off, E+Y_off), outline=255, fill=0)  # center
         if press_C:
             shift = 0
             offset = 0
@@ -206,7 +185,6 @@ while True:
             press_C = False
             text = getLS(True)
     else:  # button is pressed:
-        draw.rectangle((20, 22, 40, 40), outline=255, fill=1)  # center filled
         press_C = True
 
     # x_min, y_min, x_max, y_max, origin is upper left

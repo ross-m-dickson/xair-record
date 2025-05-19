@@ -60,7 +60,8 @@ press_C = False
 # Define commands for sub process 
 my_env = os.environ.copy()
 my_env['AUDIODEV'] = 'hw:X18XR18,0'
-record_command = ['rec', '-q', '--buffer', '262144', '-c', '18', '-b', '24']
+# requires sox, apt install sox libsox-fmt-all
+record_command = ['rec', '-q', '-c', '18', '-b', '24', '--buffer', '262144']
 path_str = '/media/pi/ExternalSSD'
 ls_command = ['ls', path_str]
 mount_command = ['sudo', '/usr/bin/mount', '/dev/sda1', path_str]

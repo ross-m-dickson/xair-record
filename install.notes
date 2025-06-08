@@ -1,0 +1,14 @@
+sudo apt update
+sudo apt upgrade
+sudo apt install sox
+python -m venv env --system-site-packages
+source env/bin/activate
+pip3 install --upgrade adafruit-python-shell
+wget https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/raspi-blinka.py
+sudo -E env PATH=$PATH python3 raspi-blinka.py
+pip3 install adafruit-circuitpython-lis3dh
+pip3 install adafruit-circuitpython-rgb-display
+
+
+export AUDIODEV='hw:X18XR18,0'
+rec -c 18 -b 24 --buffer 262144 temp.caf

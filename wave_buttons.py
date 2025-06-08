@@ -147,7 +147,7 @@ def drawText(text, offset, shift):
 #    print("%s %s %s" % (text, offset, lines))
     for line in range(MAX_LINES):
         if lines ==0 or (line+offset >= lines):
-            return
+            break
         # draw the file names green
         draw.text((0, pos), text[line+offset][shift:], font=font, fill=(0,255,0),)
         draw.text((0, pos), text[line+offset][shift:], font=font, fill=(0,255,0),) # make it bold
